@@ -1,0 +1,12 @@
+= CTFBot: Serverless API
+:icons: font
+:apigw: https://aws.amazon.com/api-gateway/
+:intint: https://api.slack.com/internal-integrations
+:lambda: https://aws.amazon.com/lambda/
+:slack: https://slack.com/
+
+_Chewin' The Fat Bot_ is a {slack}[Slack] application targeting {apigw}[Amazon
+API Gateway] and {lambda}[AWS Lambda] as runtime environment.
+
+NOTE: The intended deployment of this software is as an {intint}[internal
+integration], and the implementation will reflect this assumption.
