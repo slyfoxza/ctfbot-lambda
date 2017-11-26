@@ -1,5 +1,6 @@
 [dev-packages]
 pytest = "~=3.2.5"
+pytest-cov = "~=2.5.1"
 
 [requires]
 python_version = "3.6"
