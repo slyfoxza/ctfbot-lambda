@@ -3,6 +3,9 @@
 :apigw: https://aws.amazon.com/api-gateway/
 :intint: https://api.slack.com/internal-integrations
 :lambda: https://aws.amazon.com/lambda/
+:pipenv: https://docs.pipenv.org/
+:py36dl: https://www.python.org/downloads/release/python-363/
+:pyenv: https://github.com/pyenv/pyenv#simple-python-version-management-pyenv
 :slack: https://slack.com/
 
 _Chewin' The Fat Bot_ is a {slack}[Slack] application targeting {apigw}[Amazon
@@ -10,3 +13,10 @@ API Gateway] and {lambda}[AWS Lambda] as runtime environment.
 
 NOTE: The intended deployment of this software is as an {intint}[internal
 integration], and the implementation will reflect this assumption.
+
+== Development
+
+{pipenv}[Pipenv] makes Python dependency management sane, so your development
+environment will need it installed. You also need {py36dl}[Python 3.6]
+installed, although Pipenv may help you with this if {pyenv}[pyenv] is
+installed.
