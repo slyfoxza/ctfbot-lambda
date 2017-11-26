@@ -3,6 +3,7 @@
 :apigw: https://aws.amazon.com/api-gateway/
 :intint: https://api.slack.com/internal-integrations
 :lambda: https://aws.amazon.com/lambda/
+:pep8: https://www.python.org/dev/peps/pep-0008/
 :pipenv: https://docs.pipenv.org/
 :py36dl: https://www.python.org/downloads/release/python-363/
 :pyenv: https://github.com/pyenv/pyenv#simple-python-version-management-pyenv
@@ -20,3 +21,19 @@ integration], and the implementation will reflect this assumption.
 environment will need it installed. You also need {py36dl}[Python 3.6]
 installed, although Pipenv may help you with this if {pyenv}[pyenv] is
 installed.
+
+To configure a virtual environment for development, instruct Pipenv to install
+development packages:
+
+----
+pipenv install --dev
+----
+
+Code committed to this repository should always be able to execute the
+following commands successfully:
+
+----
+pipenv run pytest
+pipenv check --style . # <1>
+----
+<1> Use Pipenv's built-in Flake8 support to enforce {pep8}[PEP 8] code style.
