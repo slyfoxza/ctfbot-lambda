@@ -24,5 +24,5 @@ def context(): return None  # FIXME
 
 
 @pytest.mark.xfail
-def test_handle():
+def test_handle(event, context):
     dailydose.handle(event, context)
