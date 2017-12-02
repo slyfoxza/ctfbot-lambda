@@ -3,15 +3,48 @@ import boto3
 import click
 
 
+class Context:
+    def __init__(self):
+        self.account = boto3.client('sts').get_caller_identity()['Account']
+
+
 @click.group()
 @click.option('--profile',
               help='Authenticate using the profile defined in the AWS config '
                    'file.',
               metavar='PROFILE')
-def cli(profile):
+@click.pass_context
+def cli(context, profile):
     """Manage AWS continuous integration resources."""
     if profile is not None:
         boto3.setup_default_session(profile_name=profile)
+    context.obj = Context()
+
+
+@cli.group()
+@click.pass_context
+def build(context):
+    """Manage the AWS CodeBuild project."""
+    context.obj.client = boto3.client('codebuild')
+
+
+@build.command()
+@click.pass_context
+def create(context):
+    project = {
+        'name': 'CTFBot',
+        'source': {'type': 'CODEPIPELINE'},
+        'artifacts': {'type': 'CODEPIPELINE'},
+        'environment': {
+            'computeType': 'BUILD_GENERAL1_SMALL',
+            'image': 'python:3.6',
+            'type': 'LINUX_CONTAINER'
+        },
+        'serviceRole': f'arn:aws:iam::{context.obj.account}:role/'
+                       'ContinuousIntegration',
+        'badgeEnabled': True
+    }
+    context.obj.client.create_project(**project)
 
 
 if __name__ == '__main__':
