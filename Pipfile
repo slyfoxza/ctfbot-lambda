@@ -1,4 +1,5 @@
 [dev-packages]
+boto3 = "~=1.4.8"
 click = "~=6.7"
 pytest = "~=3.2.5"
 pytest-cov = "~=2.5.1"

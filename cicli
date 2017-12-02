@@ -1,10 +1,17 @@
 #!/usr/bin/env python
+import boto3
 import click
 
 
 @click.group()
-def cli():
+@click.option('--profile',
+              help='Authenticate using the profile defined in the AWS config '
+                   'file.',
+              metavar='PROFILE')
+def cli(profile):
     """Manage AWS continuous integration resources."""
+    if profile is not None:
+        boto3.setup_default_session(profile_name=profile)
 
 
 if __name__ == '__main__':
