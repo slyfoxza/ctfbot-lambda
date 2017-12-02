@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a4f26a329d8ae88bdd35985e1fbfebb623521f875b5b19820e302ffac163104f"
+            "sha256": "39d939ae740e2d4c39e22a279b3dadb079e828d754087503eadd164d5153dfa6"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -9,9 +9,9 @@
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "4.13.13-300.fc27.x86_64",
+            "platform_release": "4.13.15-300.fc27.x86_64",
             "platform_system": "Linux",
-            "platform_version": "#1 SMP Wed Nov 15 15:47:50 UTC 2017",
+            "platform_version": "#1 SMP Tue Nov 21 21:10:22 UTC 2017",
             "python_full_version": "3.6.3",
             "python_version": "3.6",
             "sys_platform": "linux"
@@ -30,6 +30,13 @@
     },
     "default": {},
     "develop": {
+        "click": {
+            "hashes": [
+                "sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d",
+                "sha256:f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"
+            ],
+            "version": "==6.7"
+        },
         "coverage": {
             "hashes": [
                 "sha256:d1ee76f560c3c3e8faada866a07a32485445e16ed2206ac8378bd90dadffb9f0",

@@ -34,6 +34,6 @@ following commands successfully:
 
 ----
 pipenv run pytest
-pipenv check --style . # <1>
+pipenv check --style . cicli # <1>
 ----
 <1> Use Pipenv's built-in Flake8 support to enforce {pep8}[PEP 8] code style.
