@@ -5,7 +5,8 @@ import click
 
 class Context:
     def __init__(self):
-        self.account = boto3.client('sts').get_caller_identity()['Account']
+        account = boto3.client('sts').get_caller_identity()['Account']
+        self.ci_role = f'arn:aws:iam::{account}:role/ContinuousIntegration'
 
 
 @click.group()
@@ -28,9 +29,9 @@ def build(context):
     context.obj.client = boto3.client('codebuild')
 
 
-@build.command()
+@build.command(name='create')
 @click.pass_context
-def create(context):
+def create_build(context):
     project = {
         'name': 'CTFBot',
         'source': {'type': 'CODEPIPELINE'},
@@ -40,11 +41,75 @@ def create(context):
             'image': 'python:3.6',
             'type': 'LINUX_CONTAINER'
         },
-        'serviceRole': f'arn:aws:iam::{context.obj.account}:role/'
-                       'ContinuousIntegration',
+        'serviceRole': context.obj.ci_role,
         'badgeEnabled': True
     }
     context.obj.client.create_project(**project)
+
+
+@cli.group()
+@click.pass_context
+def pipeline(context):
+    """Manage the AWS CodePipeline."""
+    context.obj.client = boto3.client('codepipeline')
+
+
+@pipeline.command(name='create')
+@click.option('--oauth-token', prompt='OAuth token', hide_input=True)
+@click.pass_context
+def create_pipeline(context, oauth_token):
+    github = {
+        'Owner': 'slyfoxza',
+        'Repo': 'ctfbot-lambda',
+        'Branch': 'master'
+    }
+    if oauth_token is not None:
+        github['OAuthToken'] = oauth_token
+    pipeline = {
+        'name': 'CTFBot',
+        'artifactStore': {
+            'type': 'S3',
+            'location': 'ctfbot-pipeline'
+        },
+        'roleArn': context.obj.ci_role,
+        'stages': [
+            {
+                'name': 'Source',
+                'actions': [
+                    {
+                        'name': 'GitHub',
+                        'outputArtifacts': [{'name': 'Source'}],
+                        'actionTypeId': {
+                            'category': 'Source',
+                            'owner': 'ThirdParty',
+                            'provider': 'GitHub',
+                            'version': '1'
+                        },
+                        'configuration': github
+                    }
+                ]
+            },
+            {
+                'name': 'Build',
+                'actions': [
+                    {
+                        'name': 'Build',
+                        'inputArtifacts': [{'name': 'Source'}],
+                        'actionTypeId': {
+                            'category': 'Build',
+                            'owner': 'AWS',
+                            'provider': 'CodeBuild',
+                            'version': '1'
+                        },
+                        'configuration': {
+                            'ProjectName': 'CTFBot'
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+    context.obj.client.create_pipeline(pipeline=pipeline)
 
 
 if __name__ == '__main__':
