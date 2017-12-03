@@ -1,0 +1,13 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - pip install pipenv
+  pre_build:
+    commands:
+      - pipenv install --dev --deploy
+  build:
+    commands:
+      - pipenv run pytest
+      - pipenv check --style . cicli
+      - pipenv check

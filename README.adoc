@@ -12,6 +12,8 @@
 _Chewin' The Fat Bot_ is a {slack}[Slack] application targeting {apigw}[Amazon
 API Gateway] and {lambda}[AWS Lambda] as runtime environment.
 
+image::https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoia2ErSDNBR0Nvd21rUGZPZDc1OHUzSk94NGpnTk9mUkVEVXVqaW1MVDVNYjJsTzdBOFpRanR0d2drSUxwM1ZySmxPT3RJTWt5WGtDOUZ2VjU2RkZCOTFVPSIsIml2UGFyYW1ldGVyU3BlYyI6IlhaRjZMcVExVDFyNVMxNEEiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master[]
+
 NOTE: The intended deployment of this software is as an {intint}[internal
 integration], and the implementation will reflect this assumption.
 
